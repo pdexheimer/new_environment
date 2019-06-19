@@ -28,9 +28,9 @@ update_if_different() {
 
 # Get (or update) template files
 if [ -e "$NEW_ENV_DIR/.git" ]; then
-    pushd -q "$NEW_ENV_DIR"
+    pushd "$NEW_ENV_DIR" > /dev/null
     git pull || die "Couldn't update new_environment"
-    popd -q
+    popd > /dev/null
 elif [ -e "$NEW_ENV_DIR" ]; then
     echo "$NEW_ENV_DIR exists and is not a git working copy.  Using as-is"
 else
@@ -49,9 +49,9 @@ cd "$CURDIR"
 
 # Get (or update) command-line utils
 if [ -e "$UTILS_DIR/.git" ]; then
-    pushd -q "$UTILS_DIR"
+    pushd "$UTILS_DIR" > /dev/null
     git pull || die "Couldn't update cmdline_utils"
-    popd -q
+    popd > /dev/null
 elif [ -e "$UTILS_DIR" ]; then
     echo "$UTILS_DIR exists and is not a git working copy.  Using as-is"
 else
