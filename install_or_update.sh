@@ -74,3 +74,15 @@ update_if_different "$HOME/.vimrc" "$NEW_ENV_DIR/vimrc"
 if [[ "$OSTYPE" = darwin* ]]; then
     . "$NEW_ENV_DIR/install_or_update.mac.sh"
 fi
+
+tmp=$IFS
+IFS=$'\t'
+for list in "$NEW_ENV_DIR"/apps/*.list; do
+    CATEGORY=$(basename $list .list)
+    exec 6<"$list"
+    while read -u 6 APP_NAME APP_URL APP_MAC; do
+        echo "[$CATEGORY] $APP_NAME: $APP_URL"
+    done
+    exec 6<&-
+done
+IFS=$tmp
